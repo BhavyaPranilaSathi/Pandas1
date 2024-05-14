@@ -1,0 +1,81 @@
+pandas day1
+
+Problem 1 : Make a Pandas DataFrame with two-dimensional list
+
+    mylst = [[1, 2, 3], [4, 5, 6]] 
+    df = pd.DataFrame(mylst, columns = ['first', 'second', 'third'])
+    print(df)
+
+
+
+
+
+
+Problem 2 :Big Countries
+
+
+
+sol 1:
+
+import pandas as pd
+def big_countries(world: pd.DataFrame) -> pd.DataFrame:
+	 return world[
+        (world["area"]>= 3000000) | (world["population"]>=25000000)
+        ] [['name','population','area']]
+
+sol2:
+
+import pandas as pd
+def big_countries(world: pd.DataFrame) -> pd.DataFrame:
+      df =world[(world['area']>=3000000) | (world['population']>=25000000)]
+      df = df[['name','population','area']]
+      return df
+
+sol 3:
+
+import pandas as pd
+def big_countries(world: pd.DataFrame) -> pd.DataFrame:
+      df =world[(world['area']>=3000000) | (world['population']>=25000000)]
+      return df[['name','population','area']]
+
+
+
+
+
+
+
+Problem 3 :Recyclable and Low Fat Products
+
+import pandas as pd
+
+def find_products(products: pd.DataFrame) -> pd.DataFrame:
+    df = products[(products['low_fats'] == 'Y') & (products['recyclable']== 'Y')]
+    return df[['product_id']]
+
+
+
+
+
+Problem 4 :Customer Who Never Order
+
+sol 1:
+
+import pandas as pd
+
+def find_customers(customers: pd.DataFrame, orders: pd.DataFrame) -> pd.DataFrame:
+    df=customers[~customers['id'].isin (orders['customerId']) ]
+    return df[['name']].rename(columns={'name': 'Customers'})
+
+sol 2:
+
+import pandas as pd
+
+def find_customers(customers: pd.DataFrame, orders: pd.DataFrame) -> pd.DataFrame:
+    df = customers.merge(orders, left_on = 'id', right_on ='customerId', how = 'left')
+    df = df[df['customerId'].isna()]
+    df = df[['name']].rename(columns={'name': 'Customers'})
+    return df
+
+
+
+
